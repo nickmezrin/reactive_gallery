@@ -1,0 +1,30 @@
+.imagegrid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 740px;
+    margin: auto;
+}
+
+img.imagegrid__image {
+    display: flex;
+    width: 250px;
+    height: 250px;
+    margin: 30px;
+    animation-name: fadeIn;
+    animation-duration: .6s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
