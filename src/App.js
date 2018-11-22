@@ -47,7 +47,7 @@ class App extends Component {
         loaded: true,
         images: x.results
       });
-    })
+    });
   }
 
 }

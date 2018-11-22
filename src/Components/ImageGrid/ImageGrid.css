@@ -6,16 +6,41 @@
     margin: auto;
 }
 
+.imagegrid__image-wrap {
+    position: relative;
+    margin: 25px;
+    
+}
+.image-hover {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 250px;
+    background-color: black;
+    opacity: .3;
+}
+.image-hover p {
+    position: absolute;
+    top: 180px;
+    left: 20px;
+    color: white;
+    font-size: 28px;
+}
+.imagegrid__image-wrap:hover .image-hover {
+    display: block;
+}
 img.imagegrid__image {
     display: flex;
     width: 250px;
     height: 250px;
-    margin: 30px;
     animation-name: fadeIn;
     animation-duration: .6s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
     opacity: 0;
+    object-fit: cover;
 }
 
 
