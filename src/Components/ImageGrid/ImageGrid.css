@@ -48,8 +48,10 @@ img.imagegrid__image {
 @keyframes fadeIn {
     from {
         opacity: 0;
+        filter: blur(15px);
     }
     to {
         opacity: 1;
+        filter: blur(0)
     }
 }

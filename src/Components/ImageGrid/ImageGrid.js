@@ -10,17 +10,20 @@ export class ImageGrid extends Component {
     }
 
     Images(images) {
-        return images.map((x, i) => this.Image(x.urls.regular, x.likes, i))
+        return images.map((x, i) => this.Image(x.urls.small, x.likes, x.color, i))
     }
 
-    Image(src, likes, delay)  { 
-        const style = {
-            animationDelay:  delay * 0.35 + 's'
+    Image(src, likes, color, delay)  { 
+        const imgStyle = {
+            animationDelay:  delay * 0.3 + 's',
         }
-        return <div className="imagegrid__image-wrap">
-            <img className="imagegrid__image"  style={style} src={src} alt="test"/>
+        const wrapStyle = {
+            backgroundColor: color
+        }
+        return <div className="imagegrid__image-wrap" style={wrapStyle}>
+            <img className="imagegrid__image"  style={imgStyle} src={src} alt="test"/>
             <div className="image-hover">
-                <p>{likes}	♥</p>
+                <p>{likes}♥</p>
             </div>
         </div>
     }
