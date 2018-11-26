@@ -6,7 +6,7 @@ export class ApiProvider {
     }
 
     getPhotosByQuery(query) {
-        return this.httpClient.get('search/photos', { query })
+        return this.httpClient.get('search/photos', query)
     }
 
     getPhotoById(id) {

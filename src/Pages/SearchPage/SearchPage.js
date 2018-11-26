@@ -12,8 +12,18 @@ export class SearchPage extends Component {
     this.state = {
       filter: '',
       loaded: true,
-      images: []
+      images: [],
+      page: 1
     }
+    window.addEventListener('scroll', () => {
+      const appHeight = document.getElementsByClassName('App')[0].offsetHeight;
+      const offset = window.pageYOffset;
+      const scrollHeight = window.outerHeight;
+      const fetchGap = 200;
+     if (appHeight - (offset + scrollHeight) < fetchGap && this.state.loaded ) {
+       this.handleClick();
+     }
+    })
   }
 
   render() {
@@ -27,7 +37,7 @@ export class SearchPage extends Component {
   }
 
   ImageGridResolving() {
-    if (this.state.loaded) {
+    if (this.state.loaded || this.state.images.length > 0) {
       return <ImageGrid images={this.state.images}></ImageGrid>
     } else {
       return <div className="loader" />
@@ -40,16 +50,19 @@ export class SearchPage extends Component {
 
   handleClick = () => {
     this.setState({
-      ...this.state,
       loaded: false,
-      images: []
     });
-    this.apiProvider.getPhotosByQuery(this.state.filter).subscribe(x => {
+    this.apiProvider.getPhotosByQuery({
+      query: this.state.filter,
+      page: this.state.page
+    }).subscribe(x => {
       this.setState({
         ...this.state,
         loaded: true,
-        images: x.results
+        images: [...(this.state.images || []), ...x.results],
+        page: this.state.page + 1
       });
     });
   }
+  
 }
