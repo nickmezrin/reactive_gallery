@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ApiProvider } from '../../Core/ApiProvider'
 import { HttpClient } from '../../Core/HttpClient'
-import './PhotoPage.css'
+import './PhotoPage.scss'
 
 export class PhotoPage extends Component {
     apiProvider = new ApiProvider(new HttpClient());

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ImageGrid } from '../../Components/ImageGrid/ImageGrid';
 import { HttpClient } from '../../Core/HttpClient';
-import './SearchPage.css'
+import './SearchPage.scss'
 import { ApiProvider } from '../../Core/ApiProvider';
 
 export class SearchPage extends Component {
@@ -56,20 +56,23 @@ export class SearchPage extends Component {
   }
 
   fetchPage = () => {
-    this.setState({
-      loaded: false,
-    });
-    this.apiProvider.getPhotosByQuery({
-      query: this.state.filter,
-      page: this.state.page
-    }).subscribe(x => {
+    if (this.state.filter) {
       this.setState({
-        ...this.state,
-        loaded: true,
-        images: [...(this.state.images || []), ...x.results],
-        page: this.state.page + 1
+        loaded: false,
       });
-    });
+      this.apiProvider.getPhotosByQuery({
+        query: this.state.filter,
+        page: this.state.page
+      }).subscribe(x => {
+        this.setState({
+          ...this.state,
+          loaded: true,
+          images: [...(this.state.images || []), ...x.results],
+          page: this.state.page + 1
+        });
+      }); 
+    }
+    
   }
 
   componentDidMount() {
