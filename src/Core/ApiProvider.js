@@ -12,4 +12,8 @@ export class ApiProvider {
     getPhotoById(id) {
         return this.httpClient.get(`photos/${id}`)
     }
+    
+    getRandomPhoto() {
+        return this.httpClient.get(`photos/random`)
+    }
 }

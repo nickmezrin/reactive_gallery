@@ -3,6 +3,8 @@ import { ImageGrid } from '../../Components/ImageGrid/ImageGrid';
 import { HttpClient } from '../../Core/HttpClient';
 import './SearchPage.scss'
 import { ApiProvider } from '../../Core/ApiProvider';
+import { interval } from 'rxjs';
+import { mergeMap, concatMap } from 'rxjs/operators';
 
 export class SearchPage extends Component {
 
@@ -13,10 +15,23 @@ export class SearchPage extends Component {
       filter: '',
       loaded: true,
       images: [],
-      page: 1
+      page: 1,
+      randomPhoto: {
+        color: '#eee',
+        link: ''
+      }
     }
 
-
+    interval(5000)
+      .pipe(
+        concatMap(() => this.apiProvider.getRandomPhoto())
+      ).subscribe(image => this.setState({
+        ...this.state,
+        randomPhoto: {
+          link: image.urls.small,
+          color: image.color
+        }
+      }));
 
     window.addEventListener('scroll', () => {
       const appTemplate = document.getElementsByClassName('App')[0]
@@ -33,10 +48,16 @@ export class SearchPage extends Component {
   }
 
   render() {
+    const headerStyles = {
+      backgroundColor: this.state.randomPhoto.color
+    };
     return (
       <div className="App">
-        <input autoFocus className="filter" type="text" onChange={this.handleChange} />
-        <button className="submit-btn" onClick={this.fetchPage}>→</button>
+        <div className="App__header" style={headerStyles}>
+          <img src={this.state.randomPhoto.link}></img>
+          <input autoFocus className="filter" type="text" onChange={this.handleChange} />
+          <button className="submit-btn" onClick={this.fetchPage}>→</button>
+        </div>
         <ImageGrid images={this.state.images}></ImageGrid>
         {this.state.loaded ? null : <div className="loader" />}
       </div>
