@@ -22,7 +22,7 @@ export class ImageGrid extends Component {
             backgroundColor: color
         }
         return (
-            <Link to={`/photo/${id}`} key={id}>
+            <Link to={`/photo/${id}`} key={id} color={color}>
                 <div className="imagegrid__image-wrap" style={wrapStyle}>
                     <img className="imagegrid__image" style={imgStyle} src={src} alt="test" />
                     <div className="image-hover">

@@ -10,6 +10,7 @@ export class PhotoPage extends Component {
         this.state = {
             loaded: false,
             imageId: null,
+            color: null,
             image: null
         }
     }
@@ -17,7 +18,8 @@ export class PhotoPage extends Component {
     componentDidMount() {
         this.setState({
             loaded: false,
-            imageId:  this.props.match.params.id
+            imageId:  this.props.match.params.id,
+            color: this.props.route.color
         }, () => this.loadImage())
         
     }
@@ -37,17 +39,19 @@ export class PhotoPage extends Component {
     }
 
     Image() {
-        return <img src={this.state.image.urls.regular} alt="test"></img>
+        const imgStyle = { backgroundColor: this.state.color };
+        return <img style={imgStyle}
+                    src={this.state.image.urls.regular} alt="test">
+                </img>
     }
 
     loadImage() {
         this.apiProvider.getPhotoById(this.state.imageId)
         .subscribe(image => {
-            console.log(image)
             this.setState({
                 loaded: true,
                 image: image
-            }, () => console.log(this.state))
+            })
         })
     }
 }

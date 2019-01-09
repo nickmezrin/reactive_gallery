@@ -16,22 +16,26 @@ export class SearchPage extends Component {
       page: 1
     }
     window.addEventListener('scroll', () => {
-      const appHeight = document.getElementsByClassName('App')[0].offsetHeight;
-      const offset = window.pageYOffset;
-      const scrollHeight = window.outerHeight;
-      const fetchGap = 200;
-     if (appHeight - (offset + scrollHeight) < fetchGap && this.state.loaded ) {
-       this.handleClick();
-     }
-    })
+      const appTemplate = document.getElementsByClassName('App')[0]
+      if (appTemplate) {
+        const appHeight = appTemplate.offsetHeight;
+        const offset = window.pageYOffset;
+        const scrollHeight = window.outerHeight;
+        const fetchGap = 300;
+        if (appHeight - (offset + scrollHeight) < fetchGap && this.state.loaded) {
+          this.fetchPage();
+        }
+      }
+    });
   }
 
   render() {
     return (
       <div className="App">
         <input autoFocus className="filter" type="text" onChange={this.handleChange} />
-        <button className="submit-btn" onClick={this.handleClick}>→</button>
-        {this.ImageGridResolving()}
+        <button className="submit-btn" onClick={this.fetchPage}>→</button>
+        <ImageGrid images={this.state.images}></ImageGrid>
+        {this.state.loaded ? null : <div className="loader" />}
       </div>
     )
   }
@@ -48,7 +52,7 @@ export class SearchPage extends Component {
     this.setState({ filter: evt.target.value })
   }
 
-  handleClick = () => {
+  fetchPage = () => {
     this.setState({
       loaded: false,
     });
@@ -64,5 +68,5 @@ export class SearchPage extends Component {
       });
     });
   }
-  
+
 }
