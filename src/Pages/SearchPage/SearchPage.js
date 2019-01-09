@@ -15,6 +15,9 @@ export class SearchPage extends Component {
       images: [],
       page: 1
     }
+
+
+
     window.addEventListener('scroll', () => {
       const appTemplate = document.getElementsByClassName('App')[0]
       if (appTemplate) {
@@ -67,6 +70,19 @@ export class SearchPage extends Component {
         page: this.state.page + 1
       });
     });
+  }
+
+  componentDidMount() {
+    window.addEventListener('keypress', (evt) => {
+      if (evt.keyCode  === 13) {
+        this.setState({
+          ...this.state,
+          page: 1,
+          images: []
+        });
+        this.fetchPage();
+      }
+    })
   }
 
 }

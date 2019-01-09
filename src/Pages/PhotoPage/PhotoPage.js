@@ -10,7 +10,6 @@ export class PhotoPage extends Component {
         this.state = {
             loaded: false,
             imageId: null,
-            color: null,
             image: null
         }
     }
@@ -19,14 +18,13 @@ export class PhotoPage extends Component {
         this.setState({
             loaded: false,
             imageId:  this.props.match.params.id,
-            color: this.props.route.color
         }, () => this.loadImage())
         
     }
 
     render() {
         return (
-            <section> { this.resolveLoading() } </section>
+            <section class="img-wrapper"> { this.resolveLoading() } </section>
         )
     }
 
@@ -39,10 +37,7 @@ export class PhotoPage extends Component {
     }
 
     Image() {
-        const imgStyle = { backgroundColor: this.state.color };
-        return <img style={imgStyle}
-                    src={this.state.image.urls.regular} alt="test">
-                </img>
+        return <img src={this.state.image.urls.regular} alt="test" />
     }
 
     loadImage() {
